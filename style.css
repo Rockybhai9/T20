@@ -671,6 +671,7 @@ form .button-area {
     display:flex;
     justify-content: center;
     align-items: center;
+    z-index: 9999;
   }
   .loader {
     display: inline-block;
