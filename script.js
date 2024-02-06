@@ -104,7 +104,6 @@ function reveal(){
 // Add some animation js End
 
 
-
 // pre-loader js Start
 var scrollTop;
 
@@ -131,5 +130,4 @@ $(window).on("load", function() {
         enableScroll();
     });
 });
-
 // pre-loader js End
