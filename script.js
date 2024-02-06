@@ -1,32 +1,3 @@
-// Alert Box JavaScript Start
-window.onload = function() {
-    showAlert();
-  }
-  
-  function showAlert() {
-    document.getElementById('customAlert').style.display = 'block';
-  }
-  
-  function closeAlert() {
-    document.getElementById('customAlert').style.display = 'none';
-  }
-
-function openFullScreen() {
-    document.getElementById('customAlert').style.display = 'none';
-    var elem = document.documentElement;
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) { 
-      elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { 
-      elem.msRequestFullscreen();
-    }
-}
-// Alert Box JavaScript End
-
-
 // disable developer mode js Start
 document.addEventListener('keydown', function(e) {
     if (e.keyCode == 123) {
@@ -106,7 +77,61 @@ function reveal(){
 
 
 // pre-loader js Start
-$(window).on("load",function(){
-  $(".loader-wrapper").fadeOut("slow");
+var scrollTop;
+
+function disableScroll() {
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollTop}px`;
+}
+
+function enableScroll() {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    window.scrollTo(0, scrollTop);
+}
+
+$(document).ready(function() {
+    // Disable scrolling while the preloader is active
+    disableScroll();
+});
+
+$(window).on("load", function() {
+    $(".loader-wrapper").fadeOut("slow", function() {
+        // Re-enable scrolling when the preloader is hidden
+        enableScroll();
+    });
 });
 // pre-loader js End
+
+// Alert Box JavaScript Start
+window.onload = function() {
+  showAlert();
+  disableScroll(); // Call the function to disable scroll when alert is shown
+}
+
+function showAlert() {
+  document.getElementById('customAlert').style.display = 'block';
+  disableScroll(); // Call the function to disable scroll when alert is shown
+}
+
+function closeAlert() {
+  document.getElementById('customAlert').style.display = 'none';
+  enableScroll(); // Call the function to enable scroll when alert is closed
+}
+
+function openFullScreen() {
+    document.getElementById('customAlert').style.display = 'none';
+    enableScroll();
+    var elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { 
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { 
+      elem.msRequestFullscreen();
+    }
+}
+// Alert Box JavaScript End
